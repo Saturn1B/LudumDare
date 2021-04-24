@@ -12,6 +12,7 @@ public class Booster : MonoBehaviour
     public Slider fuelValue;
     public float forceUp;
     public float forceSide;
+    public float decreaseRate;
 
 
 
@@ -29,7 +30,7 @@ public class Booster : MonoBehaviour
             _rb.AddForce(transform.right * forceSide, ForceMode.Force);
             _rb.AddForce(transform.up * forceUp, ForceMode.Force);
             _transform.localEulerAngles += Vector3.forward * -0.1f;
-            fuelValue.value -= 0.001f;
+            fuelValue.value -= decreaseRate;
         }
 
         if (Input.GetKey(rightBoost) && fuelValue.value > 0)
@@ -37,7 +38,7 @@ public class Booster : MonoBehaviour
             _rb.AddForce(transform.right * -forceSide, ForceMode.Force);
             _rb.AddForce(transform.up * forceUp, ForceMode.Force);
             _transform.localEulerAngles += Vector3.forward * 0.1f;
-            fuelValue.value -= 0.001f;
+            fuelValue.value -= decreaseRate;
         }
 
     }

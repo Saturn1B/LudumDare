@@ -136,6 +136,7 @@ MonoBehaviour:
   fuelValue: {fileID: 0}
   forceUp: 1.5
   forceSide: 0.15
+  decreaseRate: 0.001
 --- !u!114 &3999974863286772437
 MonoBehaviour:
   m_ObjectHideFlags: 0
