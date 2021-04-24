@@ -26,7 +26,7 @@ public class DestructibleObject : MonoBehaviour
         if (regenProps)
         {
             GetComponent<Renderer>().material.color = Color.Lerp(destroyColor, startColor, param);
-            param += 0.001f;
+            param += 0.004f;
             param = Mathf.Clamp(param, 0, 1);
             if(param >= 1)
             {
