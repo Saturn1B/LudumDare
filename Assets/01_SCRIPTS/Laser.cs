@@ -26,7 +26,7 @@ public class Laser : MonoBehaviour
             if (hitObject.GetComponent<DestructibleObject>())
             {
                 hit.transform.GetComponent<DestructibleObject>().HP -= 0.1f;
-                param += 0.001f;
+                param += 0.004f;
                 param = Mathf.Clamp(param, 0, 1);
                 hit.transform.GetComponent<Renderer>().material.color = Color.Lerp(hit.transform.GetComponent<DestructibleObject>().startColor, redColor, param);
             }
