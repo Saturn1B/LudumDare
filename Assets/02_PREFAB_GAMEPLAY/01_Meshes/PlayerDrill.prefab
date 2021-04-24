@@ -110,7 +110,7 @@ Rigidbody:
   m_GameObject: {fileID: 3999974863286772394}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 0.25
   m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -134,9 +134,9 @@ MonoBehaviour:
   leftBoost: 275
   rightBoost: 276
   fuelValue: {fileID: 0}
-  forceUp: 1.5
-  forceSide: 0.15
-  decreaseRate: 0.001
+  forceUp: 1.1
+  forceSide: 1
+  decreaseRate: 0.01
 --- !u!114 &3999974863286772437
 MonoBehaviour:
   m_ObjectHideFlags: 0
