@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Fuel: {fileID: 8485012602463733726, guid: e714edad6c808084685953ca0caaece9, type: 3}
+  Warning: {fileID: 6566346907118978777, guid: c3a6a3e3deb16084ca31c33a52a18547, type: 3}
   maxTime: 5
   minTime: 10
   Bound1: {fileID: 875809310805261545}
