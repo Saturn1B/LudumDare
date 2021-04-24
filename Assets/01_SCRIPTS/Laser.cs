@@ -21,14 +21,17 @@ public class Laser : MonoBehaviour
             float size = Mathf.Clamp(Vector3.Distance(laserTransform.position, contactPos), 0, 15);
             laserTransform.localScale = new Vector3(laserTransform.localScale.x, size, laserTransform.localScale.z);
 
-            hitObject = hit.transform.gameObject;
-
-            if (hitObject.GetComponent<DestructibleObject>())
+            if(Vector3.Distance(laserTransform.position, contactPos) <= 15)
             {
-                hit.transform.GetComponent<DestructibleObject>().HP -= 0.1f;
-                param += 0.004f;
-                param = Mathf.Clamp(param, 0, 1);
-                hit.transform.GetComponent<Renderer>().material.color = Color.Lerp(hit.transform.GetComponent<DestructibleObject>().startColor, redColor, param);
+                hitObject = hit.transform.gameObject;
+
+                if (hitObject.GetComponent<DestructibleObject>())
+                {
+                    hit.transform.GetComponent<DestructibleObject>().HP -= 0.1f;
+                    param += 0.004f;
+                    param = Mathf.Clamp(param, 0, 1);
+                    hit.transform.GetComponent<Renderer>().material.color = Color.Lerp(hit.transform.GetComponent<DestructibleObject>().startColor, redColor, param);
+                }
             }
         }
         else
