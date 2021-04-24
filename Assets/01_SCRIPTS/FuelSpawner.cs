@@ -5,6 +5,7 @@ using UnityEngine;
 public class FuelSpawner : MonoBehaviour
 {
     public GameObject Fuel;
+    public GameObject Warning;
     [SerializeField]
     float maxTime;
     [SerializeField]
@@ -29,7 +30,12 @@ public class FuelSpawner : MonoBehaviour
     {
         float time = Random.Range(minTime, maxTime);
         yield return new WaitForSeconds(time);
-        GameObject tank = Instantiate(Fuel, new Vector3(Random.Range(Bound1.position.x, Bound2.position.x), transform.position.y, 0), Quaternion.identity);
+        Vector3 spawnPos = new Vector3(Random.Range(Bound1.position.x, Bound2.position.x), transform.position.y, 0);
+        GameObject warn = Instantiate(Warning, new Vector3(spawnPos.x, spawnPos.y - 4, spawnPos.z), Quaternion.identity);
+        warn.transform.parent = gameObject.transform.parent;
+        GameObject tank = Instantiate(Fuel, spawnPos, Quaternion.identity);
+        yield return new WaitForSeconds(2f);
+        Destroy(warn);
         StartCoroutine(SpawnFuel());
     } 
 }
