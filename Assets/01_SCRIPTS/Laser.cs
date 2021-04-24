@@ -7,11 +7,6 @@ public class Laser : MonoBehaviour
     public Transform laserTransform;
     public Vector3 contactPos;
     public GameObject hitObject;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

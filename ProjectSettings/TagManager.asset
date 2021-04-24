@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Laser
   - Reservoir
+  - Fuel
   layers:
   - Default
   - TransparentFX

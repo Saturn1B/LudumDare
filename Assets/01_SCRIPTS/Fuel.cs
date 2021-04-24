@@ -28,23 +28,11 @@ public class Fuel : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("hello1");
-
-        if (other.CompareTag("Reservoir"))
-        {
-            fuelValue.value += fuelAdd;
-            Debug.Log("hello");
-            Destroy(gameObject);
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.transform.tag == "Reservoir")
         {
-            Debug.Log("hello");
+            fuelValue.value += fuelAdd;
             Destroy(gameObject);
         }
     }

@@ -17,9 +17,6 @@ public class FuelSpawner : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnFuel());
-        Debug.Log(Camera.main.orthographicSize);
-        Debug.Log(Camera.main.rect.width);
-        Debug.Log(Camera.main.orthographicSize * Camera.main.rect.width);
     }
 
     // Update is called once per frame
