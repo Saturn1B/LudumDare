@@ -7,6 +7,8 @@ public class Laser : MonoBehaviour
     public Transform laserTransform;
     public Vector3 contactPos;
     public GameObject hitObject;
+    float param = 0;
+    public Color redColor;
 
     // Update is called once per frame
     void Update()
@@ -24,11 +26,23 @@ public class Laser : MonoBehaviour
             if (hitObject.GetComponent<DestructibleObject>())
             {
                 hit.transform.GetComponent<DestructibleObject>().HP -= 0.1f;
+                param += 0.001f;
+                param = Mathf.Clamp(param, 0, 1);
+                hit.transform.GetComponent<Renderer>().material.color = Color.Lerp(hit.transform.GetComponent<DestructibleObject>().startColor, redColor, param);
             }
         }
         else
         {
-            hitObject = null;
+            if(hitObject != null)
+            {
+                if (hitObject.GetComponent<DestructibleObject>())
+                {
+                    hitObject.GetComponent<DestructibleObject>().regenProps = true;
+                    hitObject.GetComponent<DestructibleObject>().destroyColor = hitObject.GetComponent<Renderer>().material.color;
+                    param = 0;
+                }
+                hitObject = null;
+            }
             laserTransform.localScale = new Vector3(laserTransform.localScale.x, 15, laserTransform.localScale.z);
         }
 

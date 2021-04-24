@@ -472,6 +472,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerDrill
       objectReference: {fileID: 0}
+    - target: {fileID: 3999974863286772436, guid: 2909c5b5281307544922fc97970395d9, type: 3}
+      propertyPath: forceUp
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3999974863286772439, guid: 2909c5b5281307544922fc97970395d9, type: 3}
       propertyPath: m_RootOrder
       value: 1
