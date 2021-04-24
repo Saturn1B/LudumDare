@@ -22,7 +22,6 @@ public class Laser : MonoBehaviour
             Debug.DrawRay(laserTransform.position, laserTransform.up * -20, Color.red, 0.5f);
             contactPos = hit.point;
             float size = Mathf.Clamp(Vector3.Distance(laserTransform.position, contactPos), 0, 20);
-            Debug.Log(size);
             laserTransform.localScale = new Vector3(laserTransform.localScale.x, size, laserTransform.localScale.z);
 
             hitObject = hit.transform.gameObject;
