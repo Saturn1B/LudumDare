@@ -1,0 +1,34 @@
+-1 = mode normal
+1 = dissolvé
+
+
+JE VEUX DISOLVE
+    !
+    !
+   \/
+
+Void Start ()
+{
+   IsDisolve = -1;
+}
+
+if (j ai besoin de le dissolve)
+{
+   IsDisolve = 1;
+}
+
+
+JE VEUX SOLVE
+    !
+    !
+   \/
+
+Void Start ()
+{
+   IsDisolve = 1;
+}
+
+if (j ai besoin de le solve)
+{
+   IsDisolve = -1;
+}
