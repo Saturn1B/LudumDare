@@ -9,6 +9,9 @@ public class Laser : MonoBehaviour
     public GameObject hitObject;
     float param = 0;
     public Color redColor;
+    public ParticleSystem LaserBeam;
+    public AudioSource BeamEndSound;
+    public AudioSource BreakBlock;
 
     // Update is called once per frame
     void Update()
@@ -23,29 +26,41 @@ public class Laser : MonoBehaviour
 
             if(Vector3.Distance(laserTransform.position, contactPos) <= 15)
             {
+                LaserBeam.Play();
+                BeamEndSound.Play();
                 hitObject = hit.transform.gameObject;
 
                 if (hitObject.GetComponent<DestructibleObject>())
                 {
                     hit.transform.GetComponent<DestructibleObject>().HP -= 0.1f;
+                    if(hit.transform.GetComponent<DestructibleObject>().HP <= 0)
+                    {
+                        BreakBlock.Play();
+                    }
                     param += 0.004f;
                     param = Mathf.Clamp(param, 0, 1);
                     hit.transform.GetComponent<Renderer>().material.color = Color.Lerp(hit.transform.GetComponent<DestructibleObject>().startColor, redColor, param);
                 }
             }
+            else
+            {
+                if (hitObject != null)
+                {
+                    if (hitObject.GetComponent<DestructibleObject>())
+                    {
+                        hitObject.GetComponent<DestructibleObject>().regenProps = true;
+                        hitObject.GetComponent<DestructibleObject>().destroyColor = hitObject.GetComponent<Renderer>().material.color;
+                        param = 0;
+                    }
+                    hitObject = null;
+                    BeamEndSound.Stop();
+                    LaserBeam.Stop();
+                    LaserBeam.Clear();
+                }
+            }
         }
         else
         {
-            if(hitObject != null)
-            {
-                if (hitObject.GetComponent<DestructibleObject>())
-                {
-                    hitObject.GetComponent<DestructibleObject>().regenProps = true;
-                    hitObject.GetComponent<DestructibleObject>().destroyColor = hitObject.GetComponent<Renderer>().material.color;
-                    param = 0;
-                }
-                hitObject = null;
-            }
             laserTransform.localScale = new Vector3(laserTransform.localScale.x, 15, laserTransform.localScale.z);
         }
 
