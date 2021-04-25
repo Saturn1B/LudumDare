@@ -18,11 +18,13 @@ public class Booster : MonoBehaviour
     public AudioSource[] Engage;
     public AudioSource[] Loop;
     public AudioSource[] End;
+    public bool canMove;
 
     // Start is called before the first frame update
     void Start()
     {
         fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
+        canMove = true;
         ResetBooster();
     }
 
@@ -40,11 +42,11 @@ public class Booster : MonoBehaviour
             booster.startColor = Color.Lerp(Color.yellow, Color.blue, param);
         }
 
-        if(Input.GetKeyDown(leftBoost) && fuelValue.value > 0)
+        if(Input.GetKeyDown(leftBoost) && fuelValue.value > 0 && canMove)
         {
             StartCoroutine(StartFlameSound(0));
         }
-        if (Input.GetKey(leftBoost) && fuelValue.value > 0)
+        if (Input.GetKey(leftBoost) && fuelValue.value > 0 && canMove)
         {
             _rb.AddForce(transform.right * forceSide, ForceMode.Force);
             _rb.AddForce(transform.up * forceUp, ForceMode.Force);
@@ -56,7 +58,7 @@ public class Booster : MonoBehaviour
                 BoosterFlame[0].Play();
             }
         }
-        else if(Input.GetKeyUp(leftBoost) || fuelValue.value <= 0)
+        else if((Input.GetKeyUp(leftBoost) || fuelValue.value <= 0) && canMove)
         {
             BoosterLights[0].SetActive(false);
             BoosterFlame[0].Stop();
@@ -64,11 +66,11 @@ public class Booster : MonoBehaviour
             End[0].Play();
         }
 
-        if (Input.GetKeyDown(rightBoost) && fuelValue.value > 0)
+        if (Input.GetKeyDown(rightBoost) && fuelValue.value > 0 && canMove)
         {
             StartCoroutine(StartFlameSound(1));
         }
-        if (Input.GetKey(rightBoost) && fuelValue.value > 0)
+        if (Input.GetKey(rightBoost) && fuelValue.value > 0 && canMove)
         {
             _rb.AddForce(transform.right * -forceSide, ForceMode.Force);
             _rb.AddForce(transform.up * forceUp, ForceMode.Force);
@@ -80,7 +82,7 @@ public class Booster : MonoBehaviour
                 BoosterFlame[1].Play();
             }
         }
-        else if (Input.GetKeyUp(rightBoost) || fuelValue.value <= 0)
+        else if ((Input.GetKeyUp(rightBoost) || fuelValue.value <= 0) && canMove)
         {
             BoosterLights[1].SetActive(false);
             BoosterFlame[1].Stop();

@@ -250,6 +250,7 @@ MonoBehaviour:
   End:
   - {fileID: 6714188284541491095}
   - {fileID: 2261029991585466540}
+  canMove: 0
 --- !u!114 &3999974863286772437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,6 +285,10 @@ MonoBehaviour:
   ObjectImpact: {fileID: 5283885271431609377}
   Impact: {fileID: 3541152657363928612}
   Pipe: {fileID: 907865357836487975}
+  HUDPanel: {fileID: 0}
+  EndPanel: {fileID: 0}
+  profondeur: {fileID: 1240175661}
+  Laser: {fileID: 3999974863319227946}
 --- !u!114 &1240175661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Deepness: {fileID: 0}
+  deepnessValue: 0
 --- !u!82 &3541152657363928612
 AudioSource:
   m_ObjectHideFlags: 0

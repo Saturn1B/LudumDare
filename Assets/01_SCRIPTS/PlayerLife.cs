@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerLife : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class PlayerLife : MonoBehaviour
     public AudioSource ObjectImpact;
     public AudioSource Impact;
     public AudioSource Pipe;
+    public GameObject HUDPanel, EndPanel;
+    public Profondeur profondeur;
+    public GameObject Laser, FuelSpawner;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +30,11 @@ public class PlayerLife : MonoBehaviour
         life = HPs.Length;
         shaker = GameObject.Find("Main Camera").GetComponent<CameraShake>();
         shaker.enabled = false;
+        HUDPanel = GameObject.Find("HUD");
+        EndPanel = GameObject.Find("EndGame");
+        HUDPanel.SetActive(false);
+        EndPanel.SetActive(false);
+        FuelSpawner = GameObject.Find("FuelSpawner");
     }
 
     // Update is called once per frame
@@ -65,8 +74,15 @@ public class PlayerLife : MonoBehaviour
 
         if (life <= 0)
         {
+            HUDPanel.SetActive(false);
+            EndPanel.SetActive(true);
+            booster.canMove = false;
+            Laser.SetActive(false);
+            FuelSpawner.SetActive(false);
+            shaker.enabled = false;
+            EndPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "SCORE" + '\n' + profondeur.deepnessValue.ToString("#.#");
+            Time.timeScale = 0;
             booster.ResetBooster();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
