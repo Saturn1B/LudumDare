@@ -252,6 +252,7 @@ MonoBehaviour:
   HPs: []
   _rb: {fileID: 3999974863286772395}
   CollisionSparks: {fileID: 6721967528710851271, guid: 86b7fe6a71277884fb4c1aec4da11a9c, type: 3}
+  shaker: {fileID: 0}
 --- !u!114 &1240175661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,8 +522,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 1
-  m_Range: 5
+  m_Intensity: 100
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

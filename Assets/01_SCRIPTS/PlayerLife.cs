@@ -10,12 +10,15 @@ public class PlayerLife : MonoBehaviour
     int life;
     public Rigidbody _rb;
     public GameObject CollisionSparks;
+    public CameraShake shaker;
 
     // Start is called before the first frame update
     void Start()
     {
         HPs = GameObject.Find("HP").transform.GetComponentsInChildren<Image>();
         life = HPs.Length;
+        shaker = GameObject.Find("Main Camera").GetComponent<CameraShake>();
+        shaker.enabled = false;
     }
 
     // Update is called once per frame
@@ -42,7 +45,11 @@ public class PlayerLife : MonoBehaviour
     IEnumerator Sparks(Vector3 contactPoint)
     {
         GameObject sparks = Instantiate(CollisionSparks, contactPoint, Quaternion.identity);
-        yield return new WaitForSeconds(2);
+        shaker.enabled = true;
+        yield return new WaitForSeconds(1);
+        shaker.enabled = false;
+        shaker.shakeDuration = 0.5f;
+        yield return new WaitForSeconds(1);
         Destroy(sparks);
     }
 
