@@ -8,6 +8,7 @@ public class Fuel : MonoBehaviour
     public float dispawnTime;
     public Slider fuelValue;
     public float fuelAdd;
+    public GameObject AddParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class Fuel : MonoBehaviour
     {
         if(collision.transform.tag == "Reservoir")
         {
+            GameObject particle = Instantiate(AddParticle, collision.GetContact(0).point, Quaternion.identity);
             fuelValue.value += fuelAdd;
             Destroy(gameObject);
         }
