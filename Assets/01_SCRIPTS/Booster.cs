@@ -15,23 +15,15 @@ public class Booster : MonoBehaviour
     public float decreaseRate;
     public GameObject[] BoosterLights;
     public ParticleSystem[] BoosterFlame;
-
-
+    public AudioSource[] Engage;
+    public AudioSource[] Loop;
+    public AudioSource[] End;
 
     // Start is called before the first frame update
     void Start()
     {
         fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
-        foreach(GameObject booster in BoosterLights)
-        {
-            booster.GetComponent<Light>().color = Color.yellow;
-            booster.SetActive(false);
-        }
-        foreach (ParticleSystem booster in BoosterFlame)
-        {
-            //booster.GetComponent<Light>().color = Color.yellow;
-            booster.Stop();
-        }
+        ResetBooster();
     }
 
     // Update is called once per frame
@@ -49,7 +41,10 @@ public class Booster : MonoBehaviour
             booster.startColor = Color.Lerp(Color.yellow, Color.blue, param);
         }
 
-
+        if(Input.GetKeyDown(leftBoost) && fuelValue.value > 0)
+        {
+            StartCoroutine(StartFlameSound(0));
+        }
         if (Input.GetKey(leftBoost) && fuelValue.value > 0)
         {
             _rb.AddForce(transform.right * forceSide, ForceMode.Force);
@@ -62,12 +57,18 @@ public class Booster : MonoBehaviour
                 BoosterFlame[0].Play();
             }
         }
-        else
+        else if(Input.GetKeyUp(leftBoost) || fuelValue.value <= 0)
         {
             BoosterLights[0].SetActive(false);
             BoosterFlame[0].Stop();
+            Loop[0].Stop();
+            End[0].Play();
         }
 
+        if (Input.GetKeyDown(rightBoost) && fuelValue.value > 0)
+        {
+            StartCoroutine(StartFlameSound(1));
+        }
         if (Input.GetKey(rightBoost) && fuelValue.value > 0)
         {
             _rb.AddForce(transform.right * -forceSide, ForceMode.Force);
@@ -80,12 +81,44 @@ public class Booster : MonoBehaviour
                 BoosterFlame[1].Play();
             }
         }
-        else
+        else if (Input.GetKeyUp(rightBoost) || fuelValue.value <= 0)
         {
             BoosterLights[1].SetActive(false);
             BoosterFlame[1].Stop();
+            Loop[1].Stop();
+            End[1].Play();
         }
     }
 
+    IEnumerator StartFlameSound(int index)
+    {
+        Engage[index].Play();
+        yield return new WaitForSeconds(0.1f);
+        Loop[index].Play();
+    }
 
+    public void ResetBooster()
+    {
+        foreach (GameObject booster in BoosterLights)
+        {
+            booster.GetComponent<Light>().color = Color.yellow;
+            booster.SetActive(false);
+        }
+        foreach (ParticleSystem booster in BoosterFlame)
+        {
+            booster.Stop();
+        }
+        foreach (AudioSource booster in Engage)
+        {
+            booster.Stop();
+        }
+        foreach (AudioSource booster in Loop)
+        {
+            booster.Stop();
+        }
+        foreach (AudioSource booster in End)
+        {
+            booster.Stop();
+        }
+    }
 }

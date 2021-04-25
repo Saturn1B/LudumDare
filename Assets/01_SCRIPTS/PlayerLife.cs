@@ -11,6 +11,7 @@ public class PlayerLife : MonoBehaviour
     public Rigidbody _rb;
     public GameObject CollisionSparks;
     public CameraShake shaker;
+    public Booster booster;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class PlayerLife : MonoBehaviour
 
         if (life <= 0)
         {
+            booster.ResetBooster();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
