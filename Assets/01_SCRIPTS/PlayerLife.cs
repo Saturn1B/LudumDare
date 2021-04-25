@@ -12,6 +12,11 @@ public class PlayerLife : MonoBehaviour
     public GameObject CollisionSparks;
     public CameraShake shaker;
     public Booster booster;
+    public AudioClip[] ImpactClips;
+    public AudioClip[] FungusImpactClips;
+    public AudioSource ObjectImpact;
+    public AudioSource Impact;
+    public AudioSource Pipe;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +39,22 @@ public class PlayerLife : MonoBehaviour
         {
             HPs[life - 1].enabled = false;
             life -= 1;
+            Impact.clip = ImpactClips[Random.Range(0, 2)];
+            Impact.Play();
+            int r = Random.Range(0, 3);
+            if(r == 0)
+            {
+                Pipe.Play();
+            }
             StartCoroutine(Sparks(collision.GetContact(0).point));
+            if(collision.transform.tag == "Fungus")
+            {
+                int r2 = Random.Range(0, 5);
+                if(r2 == 0){ ObjectImpact.clip = FungusImpactClips[1]; }
+                else { ObjectImpact.clip = FungusImpactClips[0]; }
+                ObjectImpact.Play();
+                Destroy(collision.transform.gameObject);
+            }
         }
 
         if (life <= 0)

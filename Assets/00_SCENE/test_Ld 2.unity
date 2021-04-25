@@ -672,6 +672,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tube
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8e06d38e041d1f64c8e71ab263b7c5ab, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e06d38e041d1f64c8e71ab263b7c5ab, type: 3}
 --- !u!1 &42446312 stripped
@@ -2993,6 +2997,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 907865357836487975, guid: 2909c5b5281307544922fc97970395d9, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541152657363928612, guid: 2909c5b5281307544922fc97970395d9, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3999974863286772394, guid: 2909c5b5281307544922fc97970395d9, type: 3}
       propertyPath: m_Name
       value: PlayerDrill
