@@ -14,6 +14,7 @@ public class PlayerLife : MonoBehaviour
     public Booster booster;
     public AudioClip[] ImpactClips;
     public AudioClip[] FungusImpactClips;
+    public AudioClip[] RockImpacts;
     public AudioSource ObjectImpact;
     public AudioSource Impact;
     public AudioSource Pipe;
@@ -39,7 +40,7 @@ public class PlayerLife : MonoBehaviour
         {
             HPs[life - 1].enabled = false;
             life -= 1;
-            Impact.clip = ImpactClips[Random.Range(0, 2)];
+            Impact.clip = ImpactClips[Random.Range(0, ImpactClips.Length)];
             Impact.Play();
             int r = Random.Range(0, 3);
             if(r == 0)
@@ -54,6 +55,11 @@ public class PlayerLife : MonoBehaviour
                 else { ObjectImpact.clip = FungusImpactClips[0]; }
                 ObjectImpact.Play();
                 Destroy(collision.transform.gameObject);
+            }
+            if (collision.transform.tag == "Rock")
+            {
+                ObjectImpact.clip = RockImpacts[Random.Range(0, RockImpacts.Length)];
+                ObjectImpact.Play();
             }
         }
 
@@ -70,7 +76,7 @@ public class PlayerLife : MonoBehaviour
         shaker.enabled = true;
         yield return new WaitForSeconds(1);
         shaker.enabled = false;
-        shaker.shakeDuration = 0.5f;
+        shaker.shakeDuration = 0.25f;
         yield return new WaitForSeconds(1);
         Destroy(sparks);
     }

@@ -29,7 +29,6 @@ public class Booster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_rb.velocity.magnitude);
         float param = Mathf.InverseLerp(0, 15, _rb.velocity.magnitude);
         foreach (GameObject booster in BoosterLights)
         {
