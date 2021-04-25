@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DissolveMaterial
+  m_Name: MaterialUsefull
   m_Shader: {fileID: -6465566751694194690, guid: a6727d842b4383842afd4545d9dbac22,
     type: 3}
   m_ShaderKeywords: 
@@ -20,16 +20,23 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_43DF018F:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_4D219213:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Texture2D_9353E86F:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_3AF306B1: 0.04
-    - Vector1_664C595E: 0
+    - Vector1_3AF306B1: 0.01
+    - Vector1_664C595E: -1
     - Vector1_6AA49DBF: 30
     - Vector1_BB57E821: 0
     m_Colors:
-    - Color_608CE0C8: {r: 0, g: 3.847477e+30, b: 1.5191842e+31, a: 0}
+    - Color_608CE0C8: {r: 0, g: 4.392157, b: 16, a: 0}
     - Color_6B2B6654: {r: 0, g: 0, b: 0, a: 0}
-    - Vector3_28DD225A: {r: 0, g: 0, b: 0, a: 0}
