@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Profondeur : MonoBehaviour
 {
     public Text Deepness;
-    float deepnessValue;
+    public float deepnessValue;
 
     // Start is called before the first frame update
     void Start()

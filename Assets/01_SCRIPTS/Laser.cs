@@ -35,6 +35,8 @@ public class Laser : MonoBehaviour
                     hit.transform.GetComponent<DestructibleObject>().HP -= 0.1f;
                     if(hit.transform.GetComponent<DestructibleObject>().HP <= 0)
                     {
+                        LaserBeam.Stop();
+                        BeamEndSound.Stop();
                         BreakBlock.Play();
                     }
                     param += 0.004f;

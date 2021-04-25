@@ -267,3 +267,4 @@ MonoBehaviour:
   dispawnTime: 10
   fuelValue: {fileID: 0}
   fuelAdd: 50
+  AddParticle: {fileID: 3912241968997510095, guid: 47a87d4200d90b94cbe3626c748874ed, type: 3}

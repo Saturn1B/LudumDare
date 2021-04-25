@@ -18,17 +18,54 @@ public class Booster : MonoBehaviour
     public AudioSource[] Engage;
     public AudioSource[] Loop;
     public AudioSource[] End;
+    public AudioSource Warning;
+    public bool canMove;
+    float warningTimer;
+    bool belowLevel;
+
+    private void Awake()
+    {
+        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
+        canMove = true;
         ResetBooster();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(fuelValue.value < 40 && fuelValue.value >= 30)
+        {
+            if(!belowLevel)
+            {
+                StartCoroutine(FuelWarning());
+                belowLevel = true;
+            }
+            warningTimer = 1.5f;
+        }
+        else if(fuelValue.value >= 20)
+        {
+            warningTimer = 1.2f;
+        }
+        else if(fuelValue.value >= 10)
+        {
+            warningTimer = 0.9f;
+        }
+        else { warningTimer = 0.5f; }
+
+        if(fuelValue.value >= 40)
+        {
+            if (belowLevel)
+            {
+                StopAllCoroutines();
+                belowLevel = false;
+            }
+        }
+
         float param = Mathf.InverseLerp(0, 15, _rb.velocity.magnitude);
         foreach (GameObject booster in BoosterLights)
         {
@@ -40,11 +77,11 @@ public class Booster : MonoBehaviour
             booster.startColor = Color.Lerp(Color.yellow, Color.blue, param);
         }
 
-        if(Input.GetKeyDown(leftBoost) && fuelValue.value > 0)
+        if(Input.GetKeyDown(leftBoost) && fuelValue.value > 0 && canMove)
         {
             StartCoroutine(StartFlameSound(0));
         }
-        if (Input.GetKey(leftBoost) && fuelValue.value > 0)
+        if (Input.GetKey(leftBoost) && fuelValue.value > 0 && canMove)
         {
             _rb.AddForce(transform.right * forceSide, ForceMode.Force);
             _rb.AddForce(transform.up * forceUp, ForceMode.Force);
@@ -56,7 +93,7 @@ public class Booster : MonoBehaviour
                 BoosterFlame[0].Play();
             }
         }
-        else if(Input.GetKeyUp(leftBoost) || fuelValue.value <= 0)
+        else if((Input.GetKeyUp(leftBoost) || fuelValue.value <= 0) && canMove)
         {
             BoosterLights[0].SetActive(false);
             BoosterFlame[0].Stop();
@@ -64,11 +101,11 @@ public class Booster : MonoBehaviour
             End[0].Play();
         }
 
-        if (Input.GetKeyDown(rightBoost) && fuelValue.value > 0)
+        if (Input.GetKeyDown(rightBoost) && fuelValue.value > 0 && canMove)
         {
             StartCoroutine(StartFlameSound(1));
         }
-        if (Input.GetKey(rightBoost) && fuelValue.value > 0)
+        if (Input.GetKey(rightBoost) && fuelValue.value > 0 && canMove)
         {
             _rb.AddForce(transform.right * -forceSide, ForceMode.Force);
             _rb.AddForce(transform.up * forceUp, ForceMode.Force);
@@ -80,7 +117,7 @@ public class Booster : MonoBehaviour
                 BoosterFlame[1].Play();
             }
         }
-        else if (Input.GetKeyUp(rightBoost) || fuelValue.value <= 0)
+        else if ((Input.GetKeyUp(rightBoost) || fuelValue.value <= 0) && canMove)
         {
             BoosterLights[1].SetActive(false);
             BoosterFlame[1].Stop();
@@ -94,6 +131,13 @@ public class Booster : MonoBehaviour
         Engage[index].Play();
         yield return new WaitForSeconds(0.1f);
         Loop[index].Play();
+    }
+
+    IEnumerator FuelWarning()
+    {
+        yield return new WaitForSeconds(warningTimer);
+        Warning.Play();
+        StartCoroutine(FuelWarning());
     }
 
     public void ResetBooster()

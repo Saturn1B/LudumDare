@@ -8,12 +8,17 @@ public class Fuel : MonoBehaviour
     public float dispawnTime;
     public Slider fuelValue;
     public float fuelAdd;
+    public GameObject AddParticle;
+
+    private void Awake()
+    {
+        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Dispawn());
-        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
     }
 
     // Update is called once per frame
@@ -32,6 +37,7 @@ public class Fuel : MonoBehaviour
     {
         if(collision.transform.tag == "Reservoir")
         {
+            GameObject particle = Instantiate(AddParticle, collision.GetContact(0).point, Quaternion.identity);
             fuelValue.value += fuelAdd;
             Destroy(gameObject);
         }
