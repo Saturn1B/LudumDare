@@ -12,6 +12,12 @@ public class Laser : MonoBehaviour
     public ParticleSystem LaserBeam;
     public AudioSource BeamEndSound;
     public AudioSource BreakBlock;
+    public bool canPlay;
+
+    private void Start()
+    {
+        canPlay = true;
+    }
 
     // Update is called once per frame
     void Update()
@@ -26,18 +32,28 @@ public class Laser : MonoBehaviour
 
             if(Vector3.Distance(laserTransform.position, contactPos) <= 15)
             {
-                LaserBeam.Play();
-                BeamEndSound.Play();
+                if (canPlay)
+                {
+                    LaserBeam.Play();
+                    BeamEndSound.Play();
+                }
+
                 hitObject = hit.transform.gameObject;
 
                 if (hitObject.GetComponent<DestructibleObject>())
                 {
-                    hit.transform.GetComponent<DestructibleObject>().HP -= 0.1f;
-                    if(hit.transform.GetComponent<DestructibleObject>().HP <= 0)
+                    if(hitObject.GetComponent<DestructibleObject>().laser == null)
                     {
+                        hitObject.GetComponent<DestructibleObject>().laser = this;
+                    }
+                    hit.transform.GetComponent<DestructibleObject>().HP -= 0.1f;
+                    if (hit.transform.GetComponent<DestructibleObject>().param1 >= -0.8)
+                    {
+                        canPlay = false;
+                        hit.transform.GetComponent<Collider>().enabled = false;
+                        BreakBlock.Play();
                         LaserBeam.Stop();
                         BeamEndSound.Stop();
-                        BreakBlock.Play();
                     }
                     param += 0.004f;
                     param = Mathf.Clamp(param, 0, 1);

@@ -9,10 +9,16 @@ public class DestructibleObject : MonoBehaviour
     public bool regenProps;
     public Color destroyColor;
     public float param = 0;
+    public float param1 = -1;
+    public Laser laser;
 
     private void Start()
     {
-        startColor = GetComponent<Renderer>().material.color;
+        if (GetComponent<Renderer>().sharedMaterial.HasProperty("Color_31be6d288cfa48f3808d0fed40841607"))
+        {
+            Debug.Log("enfiguralimificulé");
+            startColor = GetComponent<Renderer>().sharedMaterial.GetColor("Color_31be6d288cfa48f3808d0fed40841607");
+        }
     }
 
     // Update is called once per frame
@@ -20,7 +26,7 @@ public class DestructibleObject : MonoBehaviour
     {
         if(HP <= 0)
         {
-            Destroy(gameObject);
+            StartCoroutine(DestroyObject());
         }
 
         if (regenProps)
@@ -35,6 +41,18 @@ public class DestructibleObject : MonoBehaviour
                 GetComponent<Renderer>().material.color = startColor;
             }
         }
+    }
+
+    IEnumerator DestroyObject()
+    {
+        while(gameObject.GetComponent<Renderer>().sharedMaterial.GetFloat("Vector1_664C595E") < 1)
+        {
+            yield return new WaitForSeconds(Time.fixedDeltaTime);
+            gameObject.GetComponent<Renderer>().sharedMaterial.SetFloat("Vector1_664C595E", param1);
+            param1 += 0.002f;
+        }
+        laser.canPlay = true;
+        Destroy(gameObject);
     }
 
 }

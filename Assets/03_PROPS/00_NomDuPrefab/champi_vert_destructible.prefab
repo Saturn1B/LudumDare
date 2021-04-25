@@ -821,7 +821,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 10e0c50013c10fa49a88deb9d17f1629, type: 2}
+  - {fileID: 2100000, guid: 0ab85a8e52520d740ae3dc425b4ee0c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2279,7 +2279,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 10e0c50013c10fa49a88deb9d17f1629, type: 2}
+  - {fileID: 2100000, guid: 0ab85a8e52520d740ae3dc425b4ee0c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2464,7 +2464,7 @@ GameObject:
   - component: {fileID: 2163945582088115672}
   - component: {fileID: 7563359514008530419}
   m_Layer: 0
-  m_Name: champi_vert 1
+  m_Name: champi_vert_destructible
   m_TagString: Fungus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
