@@ -10,11 +10,15 @@ public class Fuel : MonoBehaviour
     public float fuelAdd;
     public GameObject AddParticle;
 
+    private void Awake()
+    {
+        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Dispawn());
-        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
     }
 
     // Update is called once per frame

@@ -18,12 +18,19 @@ public class Booster : MonoBehaviour
     public AudioSource[] Engage;
     public AudioSource[] Loop;
     public AudioSource[] End;
+    public AudioSource Warning;
     public bool canMove;
+    float warningTimer;
+    bool belowLevel;
+
+    private void Awake()
+    {
+        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
         canMove = true;
         ResetBooster();
     }
@@ -31,6 +38,34 @@ public class Booster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(fuelValue.value < 40 && fuelValue.value >= 30)
+        {
+            if(!belowLevel)
+            {
+                StartCoroutine(FuelWarning());
+                belowLevel = true;
+            }
+            warningTimer = 1.5f;
+        }
+        else if(fuelValue.value >= 20)
+        {
+            warningTimer = 1.2f;
+        }
+        else if(fuelValue.value >= 10)
+        {
+            warningTimer = 0.9f;
+        }
+        else { warningTimer = 0.5f; }
+
+        if(fuelValue.value >= 40)
+        {
+            if (belowLevel)
+            {
+                StopAllCoroutines();
+                belowLevel = false;
+            }
+        }
+
         float param = Mathf.InverseLerp(0, 15, _rb.velocity.magnitude);
         foreach (GameObject booster in BoosterLights)
         {
@@ -96,6 +131,13 @@ public class Booster : MonoBehaviour
         Engage[index].Play();
         yield return new WaitForSeconds(0.1f);
         Loop[index].Play();
+    }
+
+    IEnumerator FuelWarning()
+    {
+        yield return new WaitForSeconds(warningTimer);
+        Warning.Play();
+        StartCoroutine(FuelWarning());
     }
 
     public void ResetBooster()

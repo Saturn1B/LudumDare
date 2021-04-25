@@ -22,6 +22,12 @@ public class PlayerLife : MonoBehaviour
     public GameObject HUDPanel, EndPanel;
     public Profondeur profondeur;
     public GameObject Laser, FuelSpawner;
+    public Slider fuelValue;
+
+    private void Awake()
+    {
+        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +47,10 @@ public class PlayerLife : MonoBehaviour
     void Update()
     {
         //Debug.Log(_rb.velocity.magnitude);
+        if(fuelValue.value <= 0)
+        {
+            StartCoroutine(Die(1));
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -74,15 +84,7 @@ public class PlayerLife : MonoBehaviour
 
         if (life <= 0)
         {
-            HUDPanel.SetActive(false);
-            EndPanel.SetActive(true);
-            booster.canMove = false;
-            Laser.SetActive(false);
-            FuelSpawner.SetActive(false);
-            shaker.enabled = false;
-            EndPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "SCORE" + '\n' + profondeur.deepnessValue.ToString("#.#");
-            Time.timeScale = 0;
-            booster.ResetBooster();
+            StartCoroutine(Die(0));
         }
     }
 
@@ -97,5 +99,18 @@ public class PlayerLife : MonoBehaviour
         Destroy(sparks);
     }
 
+    IEnumerator Die(int time)
+    {
+        yield return new WaitForSeconds(time);
+        HUDPanel.SetActive(false);
+        EndPanel.SetActive(true);
+        booster.canMove = false;
+        Laser.SetActive(false);
+        FuelSpawner.SetActive(false);
+        shaker.enabled = false;
+        EndPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "SCORE" + '\n' + profondeur.deepnessValue.ToString("#.#");
+        Time.timeScale = 0;
+        booster.ResetBooster();
+    }
 }
 

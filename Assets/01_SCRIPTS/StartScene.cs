@@ -6,6 +6,8 @@ using TMPro;
 public class StartScene : MonoBehaviour
 {
     public GameObject HUDPanel, StartPanel;
+    public AudioSource bip;
+    public AudioClip boop;
     public Rigidbody _rb;
     public Booster booster;
     // Start is called before the first frame update
@@ -27,11 +29,21 @@ public class StartScene : MonoBehaviour
     IEnumerator Counter()
     {
         int timer = 5;
-        StartPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = timer.ToString("#");
-        while (timer >= 0)
+        StartPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = timer.ToString();
+        timer -= 1;
+        while (timer >= -1)
         {
             yield return new WaitForSeconds(1);
-            StartPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = timer.ToString("#");
+            if(timer > 0)
+            {
+                bip.Play();
+            }
+            else
+            {
+                bip.clip = boop;
+                bip.Play();
+            }
+            StartPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = timer.ToString();
             timer -= 1;
         }
         StartPanel.SetActive(false);

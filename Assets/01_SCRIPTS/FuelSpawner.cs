@@ -20,12 +20,6 @@ public class FuelSpawner : MonoBehaviour
         StartCoroutine(SpawnFuel());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     IEnumerator SpawnFuel()
     {
         float time = Random.Range(minTime, maxTime);
