@@ -122,7 +122,7 @@ Transform:
   m_GameObject: {fileID: 6721967528710851271}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 6721967527675867126}
   m_Father: {fileID: 0}
@@ -141,6 +141,7 @@ VisualEffect:
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
+  m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
       m_Array: []
@@ -150,9 +151,12 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 1.9802321, y: 2.1198652, z: 2.743851, w: 0}
+      - m_Value: {x: 6.4, y: 1.809424, z: 0.53612566, w: 0}
         m_Name: Color02
         m_Overridden: 1
+      - m_Value: {x: 6.4, y: 1.809424, z: 0.53612566, w: 0}
+        m_Name: Color01
+        m_Overridden: 0
     m_Uint:
       m_Array: []
     m_Int:

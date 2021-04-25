@@ -251,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HPs: []
   _rb: {fileID: 3999974863286772395}
+  CollisionSparks: {fileID: 6721967528710851271, guid: 86b7fe6a71277884fb4c1aec4da11a9c, type: 3}
 --- !u!114 &1240175661
 MonoBehaviour:
   m_ObjectHideFlags: 0
