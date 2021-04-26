@@ -27,6 +27,7 @@ public class PlayerLife : MonoBehaviour
     private void Awake()
     {
         fuelValue = GameObject.Find("FuelSlider").GetComponent<MySlider>();
+        FuelSpawner = GameObject.Find("FuelSpawner");
     }
 
     // Start is called before the first frame update
@@ -40,7 +41,6 @@ public class PlayerLife : MonoBehaviour
         EndPanel = GameObject.Find("EndGame");
         HUDPanel.SetActive(false);
         EndPanel.SetActive(false);
-        FuelSpawner = GameObject.Find("FuelSpawner");
     }
 
     // Update is called once per frame
