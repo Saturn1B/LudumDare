@@ -10,6 +10,7 @@ TagManager:
   - Fungus
   - Rock
   - Patrick
+  - Landing
   layers:
   - Default
   - TransparentFX

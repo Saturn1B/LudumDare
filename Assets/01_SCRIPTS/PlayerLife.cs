@@ -27,6 +27,7 @@ public class PlayerLife : MonoBehaviour
     private void Awake()
     {
         fuelValue = GameObject.Find("FuelSlider").GetComponent<MySlider>();
+        FuelSpawner = GameObject.Find("FuelSpawner");
     }
 
     // Start is called before the first frame update
@@ -40,7 +41,6 @@ public class PlayerLife : MonoBehaviour
         EndPanel = GameObject.Find("EndGame");
         HUDPanel.SetActive(false);
         EndPanel.SetActive(false);
-        FuelSpawner = GameObject.Find("FuelSpawner");
     }
 
     // Update is called once per frame
@@ -49,13 +49,13 @@ public class PlayerLife : MonoBehaviour
         //Debug.Log(_rb.velocity.magnitude);
         if(fuelValue.value <= 0)
         {
-            StartCoroutine(Die(1));
+            StartCoroutine(Die(1, false));
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag != "Fuel")
+        if (collision.transform.tag != "Fuel" && collision.transform.tag != "Landing")
         {
             HPs[life - 1].enabled = false;
             life -= 1;
@@ -90,11 +90,16 @@ public class PlayerLife : MonoBehaviour
                 HPs[life - 1].enabled = false;
                 life -= 1;
             }
+        }else if(collision.transform.tag == "Landing")
+        {
+            Impact.clip = ImpactClips[1];
+            Impact.Play();
+            StartCoroutine(Die(0, true));
         }
 
         if (life <= 0)
         {
-            StartCoroutine(Die(0));
+            StartCoroutine(Die(0, false));
         }
     }
 
@@ -109,9 +114,13 @@ public class PlayerLife : MonoBehaviour
         Destroy(sparks);
     }
 
-    IEnumerator Die(int time)
+    IEnumerator Die(int time, bool win)
     {
         yield return new WaitForSeconds(time);
+        if (!win)
+        {
+            EndPanel.transform.GetChild(3).gameObject.SetActive(false);
+        }
         HUDPanel.SetActive(false);
         EndPanel.SetActive(true);
         booster.canMove = false;

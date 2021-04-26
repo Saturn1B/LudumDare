@@ -10,11 +10,14 @@ public class StartScene : MonoBehaviour
     public AudioClip boop;
     public Rigidbody _rb;
     public Booster booster;
+    public GameObject fuelSpawner;
     // Start is called before the first frame update
     void Start()
     {
         _rb = GameObject.Find("PlayerDrill").GetComponent<Rigidbody>();
         booster = GameObject.Find("PlayerDrill").GetComponent<Booster>();
+        fuelSpawner = GameObject.Find("FuelSpawner");
+        fuelSpawner.SetActive(false);
         booster.enabled = false;
         _rb.useGravity = false;
         StartCoroutine(Counter());
@@ -48,6 +51,8 @@ public class StartScene : MonoBehaviour
         }
         StartPanel.SetActive(false);
         HUDPanel.SetActive(true);
+        fuelSpawner.SetActive(true);
+        fuelSpawner.GetComponent<FuelSpawner>().StartCoroutine(fuelSpawner.GetComponent<FuelSpawner>().SpawnFuel());
         _rb.useGravity = true;
         booster.enabled = true;
     }
