@@ -9,7 +9,7 @@ public class Booster : MonoBehaviour
     public Transform _transform;
     public KeyCode leftBoost;
     public KeyCode rightBoost;
-    public Slider fuelValue;
+    public MySlider fuelValue;
     public float forceUp;
     public float forceSide;
     public float decreaseRate;
@@ -23,10 +23,17 @@ public class Booster : MonoBehaviour
     float warningTimer;
     bool belowLevel;
     public Animator animator;
+    public GameObject orangeCircle, redCircle, whiteBarrel;
 
     private void Awake()
     {
-        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
+        fuelValue = GameObject.Find("FuelSlider").GetComponent<MySlider>();
+        orangeCircle = GameObject.Find("Circle2");
+        redCircle = GameObject.Find("Circle3");
+        whiteBarrel = GameObject.Find("Fuel2");
+        orangeCircle.SetActive(false);
+        redCircle.SetActive(false);
+        whiteBarrel.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -43,6 +50,8 @@ public class Booster : MonoBehaviour
         {
             if(!belowLevel)
             {
+                redCircle.SetActive(true);
+                whiteBarrel.SetActive(true);
                 StartCoroutine(FuelWarning());
                 belowLevel = true;
             }
@@ -62,6 +71,9 @@ public class Booster : MonoBehaviour
         {
             if (belowLevel)
             {
+                orangeCircle.SetActive(false);
+                redCircle.SetActive(false);
+                whiteBarrel.SetActive(false);
                 StopAllCoroutines();
                 belowLevel = false;
             }
@@ -88,7 +100,7 @@ public class Booster : MonoBehaviour
             _rb.AddForce(transform.right * forceSide, ForceMode.Force);
             _rb.AddForce(transform.up * forceUp, ForceMode.Force);
             _transform.localEulerAngles += Vector3.forward * -0.1f;
-            fuelValue.value -= decreaseRate;
+            fuelValue.Deduct(decreaseRate);
             BoosterLights[0].SetActive(true);
             if (!BoosterFlame[0].isPlaying)
             {
@@ -114,7 +126,7 @@ public class Booster : MonoBehaviour
             _rb.AddForce(transform.right * -forceSide, ForceMode.Force);
             _rb.AddForce(transform.up * forceUp, ForceMode.Force);
             _transform.localEulerAngles += Vector3.forward * 0.1f;
-            fuelValue.value -= decreaseRate;
+            fuelValue.Deduct(decreaseRate);
             BoosterLights[1].SetActive(true);
             if (!BoosterFlame[1].isPlaying)
             {
@@ -140,7 +152,28 @@ public class Booster : MonoBehaviour
 
     IEnumerator FuelWarning()
     {
-        yield return new WaitForSeconds(warningTimer);
+        yield return new WaitForSeconds(warningTimer / 2);
+        if (redCircle.activeSelf)
+        {
+            redCircle.SetActive(false);
+            orangeCircle.SetActive(true);
+        }
+        else
+        {
+            redCircle.SetActive(true);
+            orangeCircle.SetActive(false);
+        }
+        yield return new WaitForSeconds(warningTimer/2);
+        if (redCircle.activeSelf)
+        {
+            redCircle.SetActive(false);
+            orangeCircle.SetActive(true);
+        }
+        else
+        {
+            redCircle.SetActive(true);
+            orangeCircle.SetActive(false);
+        }
         Warning.Play();
         StartCoroutine(FuelWarning());
     }

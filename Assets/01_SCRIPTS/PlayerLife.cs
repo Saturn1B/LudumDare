@@ -22,11 +22,12 @@ public class PlayerLife : MonoBehaviour
     public GameObject HUDPanel, EndPanel;
     public Profondeur profondeur;
     public GameObject Laser, FuelSpawner;
-    public Slider fuelValue;
+    public MySlider fuelValue;
 
     private void Awake()
     {
-        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
+        fuelValue = GameObject.Find("FuelSlider").GetComponent<MySlider>();
+        FuelSpawner = GameObject.Find("FuelSpawner");
     }
 
     // Start is called before the first frame update
@@ -40,7 +41,6 @@ public class PlayerLife : MonoBehaviour
         EndPanel = GameObject.Find("EndGame");
         HUDPanel.SetActive(false);
         EndPanel.SetActive(false);
-        FuelSpawner = GameObject.Find("FuelSpawner");
     }
 
     // Update is called once per frame
@@ -79,6 +79,16 @@ public class PlayerLife : MonoBehaviour
             {
                 ObjectImpact.clip = RockImpacts[Random.Range(0, RockImpacts.Length)];
                 ObjectImpact.Play();
+            }
+            if (collision.transform.tag == "Patrick")
+            {
+                int r2 = Random.Range(0, 5);
+                if (r2 == 0) { ObjectImpact.clip = FungusImpactClips[1]; }
+                else { ObjectImpact.clip = FungusImpactClips[0]; }
+                ObjectImpact.Play();
+
+                HPs[life - 1].enabled = false;
+                life -= 1;
             }
         }
 
