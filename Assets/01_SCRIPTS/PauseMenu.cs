@@ -11,10 +11,17 @@ public class PauseMenu : MonoBehaviour
     public GameObject PauseMenuUI;
     public GameObject OptionsMenuUI;
     public GameObject MenuUI;
+    public Booster booster;
+    public GameObject startMenu, endMenu;
+
+    private void Awake()
+    {
+        booster = GameObject.Find("PlayerDrill").GetComponent<Booster>();
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !startMenu.activeSelf && !endMenu.activeSelf)
         {
             if (!OptionsOn)
             {
@@ -34,6 +41,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         PauseMenuUI.SetActive(false);
+        booster.enabled = true;
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
@@ -41,6 +49,7 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         PauseMenuUI.SetActive(true);
+        booster.enabled = false;
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
@@ -51,11 +60,13 @@ public class PauseMenu : MonoBehaviour
         {
             Time.timeScale = 0f;
         }
-        SceneManager.LoadScene("MainMenu");   
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);   
     }
     public void Play()
     {
-        SceneManager.LoadScene("PlayScene");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         InGame = true;
     }
 

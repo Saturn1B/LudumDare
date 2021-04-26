@@ -17,10 +17,10 @@ public class FuelSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnFuel());
+        //StartCoroutine(SpawnFuel());
     }
 
-    IEnumerator SpawnFuel()
+    public IEnumerator SpawnFuel()
     {
         float time = Random.Range(minTime, maxTime);
         yield return new WaitForSeconds(time);
