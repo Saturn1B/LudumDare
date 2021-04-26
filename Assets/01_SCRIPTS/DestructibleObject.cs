@@ -14,10 +14,23 @@ public class DestructibleObject : MonoBehaviour
 
     private void Start()
     {
-        if (GetComponent<Renderer>().sharedMaterial.HasProperty("Color_31be6d288cfa48f3808d0fed40841607"))
+        if(transform.tag == "Fungus")
         {
-            Debug.Log("enfiguralimificulé");
-            startColor = GetComponent<Renderer>().sharedMaterial.GetColor("Color_31be6d288cfa48f3808d0fed40841607");
+            startColor = gameObject.transform.GetChild(1).GetComponent<Renderer>().material.GetColor("Color_31be6d288cfa48f3808d0fed40841607");
+        }
+        else
+        {
+            startColor = GetComponent<Renderer>().material.GetColor("Color_31be6d288cfa48f3808d0fed40841607");
+        }
+
+        if (transform.tag == "Fungus")
+        {
+            gameObject.transform.GetChild(1).GetComponent<Renderer>().material.SetFloat("Vector1_664C595E", param1);
+            gameObject.transform.GetChild(2).GetComponent<Renderer>().material.SetFloat("Vector1_664C595E", param1);
+        }
+        else
+        {
+            gameObject.GetComponent<Renderer>().material.SetFloat("Vector1_664C595E", param1);
         }
     }
 
@@ -31,24 +44,48 @@ public class DestructibleObject : MonoBehaviour
 
         if (regenProps)
         {
-            GetComponent<Renderer>().material.color = Color.Lerp(destroyColor, startColor, param);
+            if (transform.tag == "Fungus")
+            {
+                gameObject.transform.GetChild(1).GetComponent<Renderer>().material.SetColor("Color_31be6d288cfa48f3808d0fed40841607", Color.Lerp(destroyColor, startColor, param));
+                gameObject.transform.GetChild(2).GetComponent<Renderer>().material.SetColor("Color_31be6d288cfa48f3808d0fed40841607", Color.Lerp(destroyColor, startColor, param));
+            }
+            else
+            {
+                GetComponent<Renderer>().material.SetColor("Color_31be6d288cfa48f3808d0fed40841607", Color.Lerp(destroyColor, startColor, param));
+            }
             param += 0.004f;
             param = Mathf.Clamp(param, 0, 1);
             if(param >= 1)
             {
                 regenProps = false;
                 param = 0;
-                GetComponent<Renderer>().material.color = startColor;
+                if (transform.tag == "Fungus")
+                {
+                    gameObject.transform.GetChild(1).GetComponent<Renderer>().material.SetColor("Color_31be6d288cfa48f3808d0fed40841607", startColor);
+                    gameObject.transform.GetChild(2).GetComponent<Renderer>().material.SetColor("Color_31be6d288cfa48f3808d0fed40841607", startColor);
+                }
+                else
+                {
+                    GetComponent<Renderer>().material.SetColor("Color_31be6d288cfa48f3808d0fed40841607", startColor);
+                }
             }
         }
     }
 
     IEnumerator DestroyObject()
     {
-        while(gameObject.GetComponent<Renderer>().sharedMaterial.GetFloat("Vector1_664C595E") < 1)
+        while(param1 < 1)
         {
             yield return new WaitForSeconds(Time.fixedDeltaTime);
-            gameObject.GetComponent<Renderer>().sharedMaterial.SetFloat("Vector1_664C595E", param1);
+            if (transform.tag == "Fungus")
+            {
+                gameObject.transform.GetChild(1).GetComponent<Renderer>().material.SetFloat("Vector1_664C595E", param1);
+                gameObject.transform.GetChild(2).GetComponent<Renderer>().material.SetFloat("Vector1_664C595E", param1);
+            }
+            else
+            {
+                gameObject.GetComponent<Renderer>().material.SetFloat("Vector1_664C595E", param1);
+            }
             param1 += 0.002f;
         }
         laser.canPlay = true;
