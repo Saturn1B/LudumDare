@@ -80,6 +80,16 @@ public class PlayerLife : MonoBehaviour
                 ObjectImpact.clip = RockImpacts[Random.Range(0, RockImpacts.Length)];
                 ObjectImpact.Play();
             }
+            if (collision.transform.tag == "Patrick")
+            {
+                int r2 = Random.Range(0, 5);
+                if (r2 == 0) { ObjectImpact.clip = FungusImpactClips[1]; }
+                else { ObjectImpact.clip = FungusImpactClips[0]; }
+                ObjectImpact.Play();
+
+                HPs[life - 1].enabled = false;
+                life -= 1;
+            }
         }
 
         if (life <= 0)
