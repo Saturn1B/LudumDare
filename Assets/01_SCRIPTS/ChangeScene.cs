@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
+    public GameObject Instruction;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,7 @@ public class ChangeScene : MonoBehaviour
 
     public void PlayButton ()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(StartGame());
     }
 
     public void CreditsButton()
@@ -41,5 +42,16 @@ public class ChangeScene : MonoBehaviour
     public void QuitButton()
     {
         Application.Quit();
+    }
+
+    IEnumerator StartGame()
+    {
+        Instruction.SetActive(true);
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        gameObject.transform.GetChild(2).gameObject.SetActive(false);
+        gameObject.transform.GetChild(3).gameObject.SetActive(false);
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(1);
     }
 }

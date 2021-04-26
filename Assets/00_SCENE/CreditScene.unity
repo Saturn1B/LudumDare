@@ -3081,7 +3081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1042334040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3097,6 +3097,9 @@ MonoBehaviour:
   PauseMenuUI: {fileID: 1167641687}
   OptionsMenuUI: {fileID: 0}
   MenuUI: {fileID: 0}
+  booster: {fileID: 0}
+  startMenu: {fileID: 0}
+  endMenu: {fileID: 0}
 --- !u!114 &1042334041
 MonoBehaviour:
   m_ObjectHideFlags: 0
