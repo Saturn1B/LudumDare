@@ -378,8 +378,8 @@ MonoBehaviour:
   leftBoost: 275
   rightBoost: 276
   fuelValue: {fileID: 0}
-  forceUp: 1.1
-  forceSide: 1
+  forceUp: 2.2
+  forceSide: 1.4
   decreaseRate: 0.01
   BoosterLights:
   - {fileID: 8823448746161285476}
@@ -399,6 +399,9 @@ MonoBehaviour:
   Warning: {fileID: 7365646662199836766}
   canMove: 0
   animator: {fileID: 3652298086445578589}
+  orangeCircle: {fileID: 0}
+  redCircle: {fileID: 0}
+  whiteBarrel: {fileID: 0}
 --- !u!114 &3999974863286772437
 MonoBehaviour:
   m_ObjectHideFlags: 0
