@@ -12,6 +12,8 @@ public class Laser : MonoBehaviour
     public ParticleSystem LaserBeam;
     public AudioSource BeamEndSound;
     public AudioSource BreakBlock;
+    public AudioClip BlockImpactClip;
+    public AudioClip[] FungusImpactClips;
     public bool canPlay;
 
     private void Start()
@@ -51,6 +53,13 @@ public class Laser : MonoBehaviour
                     {
                         canPlay = false;
                         hit.transform.GetComponent<Collider>().enabled = false;
+                        if(hit.transform.tag == "Fungus")
+                        {
+                            int r2 = Random.Range(0, 5);
+                            if (r2 == 0) { BreakBlock.clip = FungusImpactClips[1]; }
+                            else { BreakBlock.clip = FungusImpactClips[0]; }
+                        }
+                        else { BreakBlock.clip = BlockImpactClip; }
                         BreakBlock.Play();
                         LaserBeam.Stop();
                         BeamEndSound.Stop();

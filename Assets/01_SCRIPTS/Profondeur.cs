@@ -18,9 +18,9 @@ public class Profondeur : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y < deepnessValue)
+        if(transform.position.y < -deepnessValue)
         {
-            deepnessValue = transform.position.y;
+            deepnessValue = -transform.position.y;
             Deepness.text = deepnessValue.ToString("#.#");
         }
     }

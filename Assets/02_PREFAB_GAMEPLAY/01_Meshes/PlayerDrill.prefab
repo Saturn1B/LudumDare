@@ -864,6 +864,10 @@ MonoBehaviour:
   LaserBeam: {fileID: 9061500258700585940}
   BeamEndSound: {fileID: 6194624854390992882}
   BreakBlock: {fileID: 52204420695925359}
+  BlockImpactClip: {fileID: 8300000, guid: 7de3be0a408f59246a06fc1912e6fbee, type: 3}
+  FungusImpactClips:
+  - {fileID: 8300000, guid: eb555fbd5695e7c40a7a1bc62f7030a9, type: 3}
+  - {fileID: 8300000, guid: 6c1d52ed1662e4a4f88250593b3fe27c, type: 3}
   canPlay: 0
 --- !u!82 &272928099621510111
 AudioSource:
