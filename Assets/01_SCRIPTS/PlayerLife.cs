@@ -22,11 +22,11 @@ public class PlayerLife : MonoBehaviour
     public GameObject HUDPanel, EndPanel;
     public Profondeur profondeur;
     public GameObject Laser, FuelSpawner;
-    public Slider fuelValue;
+    public MySlider fuelValue;
 
     private void Awake()
     {
-        fuelValue = GameObject.Find("Slider").GetComponent<Slider>();
+        fuelValue = GameObject.Find("FuelSlider").GetComponent<MySlider>();
     }
 
     // Start is called before the first frame update
