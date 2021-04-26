@@ -22,6 +22,7 @@ public class Booster : MonoBehaviour
     public bool canMove;
     float warningTimer;
     bool belowLevel;
+    public Animator animator;
 
     private void Awake()
     {
@@ -79,6 +80,7 @@ public class Booster : MonoBehaviour
 
         if(Input.GetKeyDown(leftBoost) && fuelValue.value > 0 && canMove)
         {
+            animator.SetBool("Left", true);
             StartCoroutine(StartFlameSound(0));
         }
         if (Input.GetKey(leftBoost) && fuelValue.value > 0 && canMove)
@@ -95,6 +97,7 @@ public class Booster : MonoBehaviour
         }
         else if((Input.GetKeyUp(leftBoost) || fuelValue.value <= 0) && canMove)
         {
+            animator.SetBool("Left", false);
             BoosterLights[0].SetActive(false);
             BoosterFlame[0].Stop();
             Loop[0].Stop();
@@ -103,6 +106,7 @@ public class Booster : MonoBehaviour
 
         if (Input.GetKeyDown(rightBoost) && fuelValue.value > 0 && canMove)
         {
+            animator.SetBool("Right", true);
             StartCoroutine(StartFlameSound(1));
         }
         if (Input.GetKey(rightBoost) && fuelValue.value > 0 && canMove)
@@ -119,6 +123,7 @@ public class Booster : MonoBehaviour
         }
         else if ((Input.GetKeyUp(rightBoost) || fuelValue.value <= 0) && canMove)
         {
+            animator.SetBool("Right", false);
             BoosterLights[1].SetActive(false);
             BoosterFlame[1].Stop();
             Loop[1].Stop();
