@@ -24,6 +24,8 @@ public class Booster : MonoBehaviour
     bool belowLevel;
     public Animator animator;
     public GameObject orangeCircle, redCircle, whiteBarrel;
+    bool goRight;
+    bool goLeft;
 
     private void Awake()
     {
@@ -92,15 +94,15 @@ public class Booster : MonoBehaviour
 
         if(Input.GetKeyDown(leftBoost) && fuelValue.value > 0 && canMove)
         {
+            goLeft = true;
             animator.SetBool("Left", true);
             StartCoroutine(StartFlameSound(0));
         }
         if (Input.GetKey(leftBoost) && fuelValue.value > 0 && canMove)
         {
-            _rb.AddForce(transform.right * forceSide, ForceMode.Force);
-            _rb.AddForce(transform.up * forceUp, ForceMode.Force);
+
             _transform.localEulerAngles += Vector3.forward * -0.1f;
-            fuelValue.Deduct(decreaseRate);
+            fuelValue.Deduct(decreaseRate * Time.deltaTime * 100);
             BoosterLights[0].SetActive(true);
             if (!BoosterFlame[0].isPlaying)
             {
@@ -109,6 +111,7 @@ public class Booster : MonoBehaviour
         }
         else if((Input.GetKeyUp(leftBoost) || fuelValue.value <= 0) && canMove)
         {
+            goLeft = false;
             animator.SetBool("Left", false);
             BoosterLights[0].SetActive(false);
             BoosterFlame[0].Stop();
@@ -118,15 +121,15 @@ public class Booster : MonoBehaviour
 
         if (Input.GetKeyDown(rightBoost) && fuelValue.value > 0 && canMove)
         {
+            goRight = true;
             animator.SetBool("Right", true);
             StartCoroutine(StartFlameSound(1));
         }
         if (Input.GetKey(rightBoost) && fuelValue.value > 0 && canMove)
         {
-            _rb.AddForce(transform.right * -forceSide, ForceMode.Force);
-            _rb.AddForce(transform.up * forceUp, ForceMode.Force);
+
             _transform.localEulerAngles += Vector3.forward * 0.1f;
-            fuelValue.Deduct(decreaseRate);
+            fuelValue.Deduct(decreaseRate * Time.deltaTime * 100);
             BoosterLights[1].SetActive(true);
             if (!BoosterFlame[1].isPlaying)
             {
@@ -135,11 +138,26 @@ public class Booster : MonoBehaviour
         }
         else if ((Input.GetKeyUp(rightBoost) || fuelValue.value <= 0) && canMove)
         {
+            goRight = false;
             animator.SetBool("Right", false);
             BoosterLights[1].SetActive(false);
             BoosterFlame[1].Stop();
             Loop[1].Stop();
             End[1].Play();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (goLeft)
+        {
+            _rb.AddForce(transform.right * forceSide, ForceMode.Force);
+            _rb.AddForce(transform.up * forceUp, ForceMode.Force);
+        }
+        if (goRight)
+        {
+            _rb.AddForce(transform.right * -forceSide, ForceMode.Force);
+            _rb.AddForce(transform.up * forceUp, ForceMode.Force);
         }
     }
 

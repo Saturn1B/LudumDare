@@ -48,7 +48,7 @@ public class Laser : MonoBehaviour
                     {
                         hitObject.GetComponent<DestructibleObject>().laser = this;
                     }
-                    hit.transform.GetComponent<DestructibleObject>().HP -= 0.1f;
+                    hit.transform.GetComponent<DestructibleObject>().HP -= 0.1f * Time.deltaTime * 100;
                     if (hit.transform.GetComponent<DestructibleObject>().param1 >= -0.8)
                     {
                         canPlay = false;

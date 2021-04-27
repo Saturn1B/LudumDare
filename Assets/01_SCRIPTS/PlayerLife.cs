@@ -8,7 +8,7 @@ using TMPro;
 public class PlayerLife : MonoBehaviour
 {
     public Image[] HPs;
-    int life;
+    public int life;
     public Rigidbody _rb;
     public GameObject CollisionSparks;
     public CameraShake shaker;
@@ -57,8 +57,11 @@ public class PlayerLife : MonoBehaviour
     {
         if (collision.transform.tag != "Fuel" && collision.transform.tag != "Landing")
         {
-            HPs[life - 1].enabled = false;
-            life -= 1;
+            if(life > 0)
+            {
+                HPs[life - 1].enabled = false;
+                life -= 1;
+            }
             Impact.clip = ImpactClips[Random.Range(0, ImpactClips.Length)];
             Impact.Play();
             int r = Random.Range(0, 3);
@@ -87,8 +90,11 @@ public class PlayerLife : MonoBehaviour
                 else { ObjectImpact.clip = FungusImpactClips[0]; }
                 ObjectImpact.Play();
 
-                HPs[life - 1].enabled = false;
-                life -= 1;
+                if(life > 0)
+                {
+                    HPs[life - 1].enabled = false;
+                    life -= 1;
+                }
             }
         }else if(collision.transform.tag == "Landing")
         {
@@ -127,7 +133,7 @@ public class PlayerLife : MonoBehaviour
         Laser.SetActive(false);
         FuelSpawner.SetActive(false);
         shaker.enabled = false;
-        EndPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "SCORE" + '\n' + profondeur.deepnessValue.ToString("#.#");
+        EndPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "SCORE" + '\n' + profondeur.deepnessValue.ToString("#.#") + " M";
         Time.timeScale = 0;
         booster.ResetBooster();
     }

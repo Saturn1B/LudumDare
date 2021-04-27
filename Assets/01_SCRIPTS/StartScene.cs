@@ -14,6 +14,7 @@ public class StartScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Screen.SetResolution(829, 1080, FullScreenMode.FullScreenWindow);
         _rb = GameObject.Find("PlayerDrill").GetComponent<Rigidbody>();
         booster = GameObject.Find("PlayerDrill").GetComponent<Booster>();
         fuelSpawner = GameObject.Find("FuelSpawner");

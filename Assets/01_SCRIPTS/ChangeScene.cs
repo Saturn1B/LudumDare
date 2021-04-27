@@ -7,16 +7,11 @@ using UnityEngine.SceneManagement;
 public class ChangeScene : MonoBehaviour
 {
     public GameObject Instruction;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Screen.SetResolution(829, 1080, FullScreenMode.FullScreenWindow);
     }
 
     public void PlayButton ()

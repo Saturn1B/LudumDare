@@ -378,8 +378,8 @@ MonoBehaviour:
   leftBoost: 275
   rightBoost: 276
   fuelValue: {fileID: 0}
-  forceUp: 2.2
-  forceSide: 1.4
+  forceUp: 10
+  forceSide: 5.5
   decreaseRate: 0.01
   BoosterLights:
   - {fileID: 8823448746161285476}
