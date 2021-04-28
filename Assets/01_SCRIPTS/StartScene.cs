@@ -14,7 +14,7 @@ public class StartScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Screen.SetResolution(829, 1080, FullScreenMode.FullScreenWindow);
+        Screen.SetResolution(622, 810, FullScreenMode.Windowed);
         _rb = GameObject.Find("PlayerDrill").GetComponent<Rigidbody>();
         booster = GameObject.Find("PlayerDrill").GetComponent<Booster>();
         fuelSpawner = GameObject.Find("FuelSpawner");
@@ -22,12 +22,6 @@ public class StartScene : MonoBehaviour
         booster.enabled = false;
         _rb.useGravity = false;
         StartCoroutine(Counter());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     IEnumerator Counter()

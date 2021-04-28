@@ -11,7 +11,7 @@ public class ChangeScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Screen.SetResolution(829, 1080, FullScreenMode.FullScreenWindow);
+        Screen.SetResolution(622, 810, FullScreenMode.Windowed);
     }
 
     public void PlayButton ()
